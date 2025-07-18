@@ -10,7 +10,6 @@ export default function SvgBtn({
     selectedFile = null , 
     textResult = "",
     itemNumber = 0 ,
-    toDelete , 
     setToDelete = () => {},
 }) {
 
@@ -84,15 +83,23 @@ export default function SvgBtn({
     }
 
     // click handler for the copy btn
-    function copyHandler() {
-        // to do after writing the API 
-        console.log("copy handler called");
+    function copyHandler() { 
+        window.navigator.clipboard.writeText(textResult); 
     }
     
     // click handler for the download text btn 
     function downloadTextHandler() {
-        // to do after writing the API 
-        console.log("download text handler called");
+        const blob = new Blob([textResult] , {type: "text/plain" });
+        const textFileUrl = URL.createObjectURL(blob);
+
+        let temp_a_tag = document.createElement("a");
+        temp_a_tag.href = textFileUrl;
+        temp_a_tag.download = `${selectedFile.name}.txt`;
+        ;
+        document.body.appendChild(temp_a_tag);
+        temp_a_tag.click();
+        document.body.removeChild(temp_a_tag);
+        URL.revokeObjectURL(textFileUrl);
     }
 
     // click hendler for the delete btn
@@ -109,7 +116,6 @@ export default function SvgBtn({
             onMouseOver={mouseOverHandler} 
             onMouseLeave={mouseLeaveHandler} 
             onMouseMove={(svgBtnType === "download") ? mouseMoveHandler : () => {}}
-            // onClick={(svgBtnType === "download") ? (svgBtnType === "copy") ? (svgBtnType === "copy") : downloadTextHandler : copyHandler : downloadHandler  : () => {}}
                 onClick = {svgBtnClickHandler}
             >
             <img width={size} height={size} src={svgPath} alt="" />
@@ -120,6 +126,7 @@ export default function SvgBtn({
                 :
                 false
             }
+
         </div>
     );
 }

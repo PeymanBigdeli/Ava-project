@@ -1,15 +1,15 @@
 import "./sidebar.css"
 import NavButton from "../NavButton/navbutton.jsx";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 // Side bar component
-export default function SideBar({routeNumber  , setRouteNumber}) {
+export default function SideBar({routePath  , setRoutePath}) {
     return (
             <div className="sidebar-wrapper">
                 <div className="sidebar">
                     <SideBarHeader />
-                    <SideBarContent routeNumber={routeNumber} setRouteNumber={setRouteNumber} />
+                    <SideBarContent routePath={routePath} setRoutePath={setRoutePath} />
                 </div>
             </div>
     );
@@ -28,19 +28,23 @@ function SideBarHeader() {
 }
 
 // Sidebar components child SideBarContent
-function SideBarContent({routeNumber , setRouteNumber}) {
+function SideBarContent({routePath , setRoutePath}) {
     return(
         <div className="sidebar-content">
-            <NavButton text={"تبدیل گفتار"}
-                     svgPath={"./public/images/speech-icon.svg"}
-                     clickHandler={() => setRouteNumber(0)}
-                     isActive={routeNumber === 0}
-                />
-            <NavButton text={"آرشیو"}  
-                    svgPath={"./public/images/archive-icon.svg"}
-                    clickHandler={() => setRouteNumber(1)}
-                    isActive={routeNumber === 1} 
-                />
+            <Link to="/" >
+                <NavButton text={"تبدیل گفتار"}
+                        svgPath={"./public/images/speech-icon.svg"}
+                        clickHandler={() => {setRoutePath("/")}}
+                        isActive={routePath === "/"}
+                    />
+            </Link>
+            <Link to="/archives" >
+                <NavButton text={"آرشیو"}  
+                        svgPath={"./public/images/archive-icon.svg"}
+                        clickHandler={() => {setRoutePath("/archives")}}
+                        isActive={routePath === "/archives"} 
+                    />
+            </Link>
         </div>
     );
 }

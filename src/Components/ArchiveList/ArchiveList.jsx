@@ -83,6 +83,7 @@ export function ArchiveItem({
     uploadDate , 
     selectedFile ,
     setToDelete,
+    textResult,
 }) {
 
     let isExpanded = (expandedItem ? (itemNumber === expandedItem ) : false); // checking to see if the item has expanded or not
@@ -103,13 +104,14 @@ export function ArchiveItem({
                                     expandedItem={expandedItem}
                                     setExpandedItem={setExpandedItem}
                                     setToDelete={setToDelete}
+                                    textResult={textResult}
                                     />    
             </tr>
             {isExpanded ?
             <tr style={{height: "20rem"}} className="archive-result">
                 <td style={{width: "100%" , height: "100%" ,  padding: "0rem 2rem 2rem 1rem"}} colSpan={6}>
                     <Result selectedFile={selectedFile} 
-                        textResult={"[با][---][---] [با] و[---][---] [با][---][---][---][---] کجایی تو [خوش] می دیدی من خسته شدم [ما را] [به] این [زودی] چه جوری شد [عشق شدی] به این است[---] [آخرش] سی با فکر [و] چقدر [نزار می خوام] که [چشم تو] [و با رفت][---][---][---][---][---][---][---][---] سخت [آرام] ولی ازت می خوام[---] بر نگردی هر کسی که به [تو] باشه[---] کاشکی تو منو [بردی] [که چشمک][---] با[---][---][---][---][---] [ابو][---] [با] و و و و و [او"}  
+                        textResult={textResult}  
                         currMethod={uploadMethod}
                         isExpanded={isExpanded}
                         timeSlices={[

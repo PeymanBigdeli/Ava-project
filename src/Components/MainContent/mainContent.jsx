@@ -5,10 +5,11 @@ import ArchiveList from "../ArchiveList/ArchiveList.jsx";
 import { timeConvert  , getFileDuration , formattedDate , loadFile } from "../../Utility/utils.js";
 import { ArchiveItem } from "../ArchiveList/ArchiveList.jsx";
 import { useEffect, useState } from "react";
+import { Routes , Route } from "react-router-dom";
 
 
 
-export default function MainContent({routeNumber}) {
+export default function MainContent({routePath}) {
     const [archiveItems , setArchiveItems] = useState([]);
     const [expandedItem , setExpandedItem] = useState(0);
     const [currPage , setCurrPage] = useState(1);
@@ -35,12 +36,42 @@ export default function MainContent({routeNumber}) {
         setArchiveItems(newArchiveItems);
     } , [toDelete]);
 
+
     return (
-        <div style={routeNumber === 1 ? {paddingRight : "3rem"} : {}} className="main-content">
-            <Header routeNumber={routeNumber} />
-            {routeNumber === 0  ? <UploadMenu archiveItems={archiveItems} setArchiveItems={setArchiveItems} expandedItem={expandedItem} setExpandedItem={setExpandedItem} lastId={lastId} setLastId={setLastId} setToDelete={setToDelete} /> : false}
-            {routeNumber === 1  ? <ArchiveList archiveItems={archiveItems.slice((currPage - 1) * itemPerPage ,  currPage * itemPerPage).map(item => <ArchiveItem key={item.key} itemNumber={item.itemNumber} expandedItem={item.expandedItem} setExpandedItem={item.setExpandedItem} uploadMethod={item.uploadMethod}  uploadDate={item.uploadDate}  selectedFile={item.selectedFile} setToDelete={setToDelete} />)} 
-                                currPage={currPage} setCurrPage={setCurrPage} allpages={Math.ceil(archiveItems.length / itemPerPage)}/> : false}
+        <div style={ window.location.pathname === "/archives" ? {paddingRight : "3rem"} : {}} className="main-content">
+            <Header routePath={routePath} />
+            <Routes>
+                
+                <Route path="/" 
+                    element={<UploadMenu archiveItems={archiveItems} 
+                                        setArchiveItems={setArchiveItems} 
+                                        expandedItem={expandedItem} 
+                                        setExpandedItem={setExpandedItem} 
+                                        lastId={lastId} 
+                                        setLastId={setLastId} 
+                                        setToDelete={setToDelete} 
+                                    />} 
+                                />  
+
+                <Route path="/archives" 
+                    element={<ArchiveList currPage={currPage} 
+                                    setCurrPage={setCurrPage}  
+                                    allpages={Math.max(Math.ceil(archiveItems.length / itemPerPage) , 1)} 
+                                    archiveItems={archiveItems.slice((currPage - 1) * itemPerPage ,  currPage * itemPerPage).map(item => <ArchiveItem key={item.key} 
+                                                                                                                                                    itemNumber={item.itemNumber} 
+                                                                                                                                                    expandedItem={item.expandedItem} 
+                                                                                                                                                    setExpandedItem={item.setExpandedItem} 
+                                                                                                                                                    uploadMethod={item.uploadMethod}  
+                                                                                                                                                    uploadDate={item.uploadDate}  
+                                                                                                                                                    selectedFile={item.selectedFile} 
+                                                                                                                                                    setToDelete={setToDelete}
+                                                                                                                                                    textResult={"[با][---][---] [با] و[---][---] [با][---][---][---][---] کجایی تو [خوش] می دیدی من خسته شدم [ما را] [به] این [زودی] چه جوری شد [عشق شدی] به این است[---] [آخرش] سی با فکر [و] چقدر [نزار می خوام] که [چشم تو] [و با رفت][---][---][---][---][---][---][---][---] سخت [آرام] ولی ازت می خوام[---] بر نگردی هر کسی که به [تو] باشه[---] کاشکی تو منو [بردی] [که چشمک][---] با[---][---][---][---][---] [ابو][---] [با] و و و و و [او"} 
+                                                                                                                                                    />)} 
+
+                                            
+                                    />} 
+                                />
+            </Routes>
         </div>
     );
 }  
