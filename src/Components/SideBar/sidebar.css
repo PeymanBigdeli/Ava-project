@@ -53,6 +53,11 @@
     gap: 1.5rem;
 }
 
+.sidebar-content > a {
+    text-decoration: none;
+    
+}
+
 
 @media only all and (max-width: 900px) {
     .sidebar-wrapper {

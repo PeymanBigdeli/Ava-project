@@ -11,8 +11,8 @@ export default function ArchiveResultHeader({
     expandedItem,
     setExpandedItem,
     itemNumber,
-    toDelete,
     setToDelete,
+    textResult,
 }) {
     const [isHovered , setIsHovered] = useState([false , false , false , false]); // to save hover states of each svg btn
     const [fileDuration , setFileDuration] = useState("00:00");
@@ -77,6 +77,7 @@ export default function ArchiveResultHeader({
                             setIsHovered={setIsHovered} 
                             selectedFile={selectedFile} 
                             itemNumber={itemNumber}
+                            textResult={textResult}
                         />
                     <SvgBtn svgBtnType={"copy"} 
                             svgPath={`./public/images/copy-icon${isHovered[1] ? "-hovered" : ""}.svg`} 
@@ -85,6 +86,7 @@ export default function ArchiveResultHeader({
                             setIsHovered={setIsHovered} 
                             selectedFile={selectedFile} 
                             itemNumber={itemNumber}
+                            textResult={textResult}
                         />
 
                     <SvgBtn svgBtnType={"delete"} 
