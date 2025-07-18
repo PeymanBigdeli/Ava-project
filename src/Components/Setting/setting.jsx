@@ -1,0 +1,28 @@
+import "./setting.css"
+import SelectBtn from "../SelectBtn/selectBtn.jsx";
+import { SelectOption } from "../SelectBtn/selectBtn.jsx";
+import { useState } from "react";
+
+
+// Component to set the settings for user input by user itself 
+
+export default function Setting({isDisabled}) {
+    const [isLangEn , setIsLangEn] = useState(false);
+    return(
+        <div className={"setting" + (isDisabled ? " disabled" : "")} >
+            <div className="setting-field">
+                <span>زبان گفتار:</span>
+                <SelectBtn text={ isLangEn ? "انگلیسی" : "فارسی"}
+                 options={[<SelectOption key={1}
+                        text={ !isLangEn ? "انگلیسی" : "فارسی"} 
+                        optionClickHandler={function(event) {
+                            event.stopPropagation();
+                            event.target.closest(".select-btn-container").firstElementChild.click();
+                            setIsLangEn(!isLangEn);
+                        }}
+                    />]} 
+                 />
+            </div>
+        </div>
+    );
+}

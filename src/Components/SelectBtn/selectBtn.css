@@ -1,0 +1,72 @@
+.select-btn-container {
+    width: 120px;
+    border: 1.5px solid #00BA9F;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    overflow: hidden;
+    transition: all 150ms ease-in;
+    -webkit-transition: all 150ms ease-in;
+    -moz-transition: all 150ms ease-in;
+    -ms-transition: all 150ms ease-in;
+    -o-transition: all 150ms ease-in;
+}
+
+.select-btn-container:hover {
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+}
+
+
+
+.select-btn , .select-option {
+    font-family: "BYEKAN" , sans-serif;
+    font-size: 1rem;
+    height: 40px;
+    width: 100%;
+    border: none;
+    background-color: #FEFEFE;
+    color:  #00BA9F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 0.25rem 1rem;
+    cursor: pointer;
+}
+
+
+.select-btn span {
+    margin-left: 5px;
+}
+.select-btn img:last-child {
+    margin-top: 0.25rem;
+    transition: all 100ms ease-in;
+    -webkit-transition: all 100ms ease-in;
+    -moz-transition: all 100ms ease-in;
+    -ms-transition: all 100ms ease-in;
+    -o-transition: all 100ms ease-in;
+}
+
+.rotate {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+
+.select-option {
+    width: 75%;
+    margin: 0 auto;
+    padding:  0.25rem 0;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    border-top: 1px solid #00BA9F; 
+}

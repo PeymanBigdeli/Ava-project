@@ -1,0 +1,17 @@
+.setting {
+    width: 100%;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.setting-field {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.setting-field > span {
+    color: #626262;
+}

@@ -1,0 +1,137 @@
+.uploaded-audio-container { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.25rem;
+}
+
+.audio-player {
+    width: 80%;
+    height: 2rem;
+    background-color: #F8F8F8;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 2px 2px 5px #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0.5rem; 
+    padding: 0.25rem;
+}
+
+.audio-level , #time-stamp , .audio-btns{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.audio-level {
+    width: 20%;
+}
+
+.volume-btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+#audio-level-bar , #audio-level-progress {
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    overflow: hidden;
+    transition: all 100ms ease-in;
+    -webkit-transition: all 100ms ease-in;
+    -moz-transition: all 100ms ease-in;
+    -ms-transition: all 100ms ease-in;
+    -o-transition: all 100ms ease-in;
+    cursor: pointer;
+}
+
+#audio-level-bar {
+    height: 3px;
+    width: 60%;
+    background-color: #C6C6C6;
+    position: relative;
+}
+
+#audio-level-bar:hover {
+    height: 7px;
+}
+
+
+#audio-level-progress {
+    height: 100%;
+    width: 70%;
+    position: absolute;
+    background-color: #118AD3;
+    left: 0;
+}
+
+
+#progress-bar , #progress-bar-state {
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    transition: all 100ms ease-in;
+    -webkit-transition: all 100ms ease-in;
+    -moz-transition: all 100ms ease-in;
+    -ms-transition: all 100ms ease-in;
+    -o-transition: all 100ms ease-in;
+    /* overflow: hidden; */
+    cursor: pointer;
+}
+
+#progress-bar {
+    height: 3px;
+    width: 50%;
+    background-color: #C6C6C6;
+    position: relative;
+}
+
+#progress-bar:hover {
+    height: 7px;
+}
+
+#progress-bar-state {
+    height: 100%;
+    left: 0;
+    background-color: #118AD3;
+    position: absolute;
+
+}
+
+#progress-bar-head {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50% , -50%);
+    -webkit-transform: translate(-50% , -50%);
+    -moz-transform: translate(-50% , -50%);
+    -ms-transform: translate(-50% , -50%);
+    -o-transform: translate(-50% , -50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+
+.audio-btns > button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

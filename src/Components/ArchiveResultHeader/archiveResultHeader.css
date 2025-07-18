@@ -1,0 +1,44 @@
+.upload-mathod-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:  pointer;
+}   
+
+
+.svg-btns-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.filename-link {
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: #118AD3;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+@media only all and (max-width: 900px) {
+    .svg-btns-container {
+        gap: 1rem;
+    }
+}
+
+@media only all and (max-width: 830px) {
+    .svg-btns-container {
+        gap: 0.75rem;
+    }
+}

@@ -1,0 +1,54 @@
+
+.header-nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem; 
+    position: relative;
+}
+
+.header-nav > .select-btn-container {
+    position: absolute;
+    left: 0;
+}
+
+.header-content {
+    margin: 2rem auto 0 auto;
+    text-align: center;
+}
+
+.header-content h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+    color: #00BA9F
+}
+
+.header-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #00BA9F
+}
+
+
+
+.header-content p {
+    font-size: 1rem;
+    color: #969696;
+}
+
+@media only all and (max-width: 830px) {
+    .header-content {
+        margin: 4rem 0;
+    }
+}
+
+@media only all and (max-width: 740px) {
+    .header-content {
+        margin: 6rem 0;
+    }
+}
+
+@media only all and (min-height: 900px) {
+    .header-content {
+        margin: 5rem;
+    }
+}

@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "BYEKAN";
+    src: url("../public/fonts/BYEKAN.TTF") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body { 
+    height: 100vh;
+    font-family: "BYEKAN" , sans-serif;
+}
+
+#root {
+    height: inherit;    
+}

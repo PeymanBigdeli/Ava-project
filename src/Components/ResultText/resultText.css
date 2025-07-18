@@ -1,0 +1,23 @@
+.result-text {
+    width: 100%;
+    height: 100%;
+    font-size: 0.9rem;
+    color: rgba(0,0,0,0.6);
+    padding: 1.5rem 0.5rem;
+    overflow: auto;
+}
+
+.result-time-sliced-text {
+    padding: 0.5rem;
+}
+
+.result-time-sliced-text > ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-time-sliced-text > ul li:nth-child(odd) {
+    background-color: #F2F2F2;
+}

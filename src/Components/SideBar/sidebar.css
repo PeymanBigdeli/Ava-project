@@ -1,0 +1,75 @@
+.sidebar-wrapper {
+    min-width: 170px;
+}
+
+.sidebar {
+    width: 170px;
+    height: 100vh;
+    background: url(../../public/images/Alefba\ Group.png) , linear-gradient(#00B5A0 , #00C69B);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0.75rem;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: fixed;
+}
+
+.sidebar > div {
+    width: 100%;
+    text-align: center;
+}
+
+.sidebar-header {
+    height: 30%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-style: bold;
+    
+}
+
+.main-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.main-title > img {
+    width: 19px;
+    height: 38px;
+}
+
+.sidebar-content {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+@media only all and (max-width: 900px) {
+    .sidebar-wrapper {
+        width: 140px;
+    }
+    .sidebar {
+        width: 140px;
+        padding: 2rem 0.5rem;
+    }
+
+    .sidebar-header {
+        font-size: 1.1rem;
+    }
+
+    .main-title img{
+        width: 15px;
+        height: 30px;
+    }
+
+ }

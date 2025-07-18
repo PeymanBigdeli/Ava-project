@@ -1,0 +1,38 @@
+.upload-box-container {
+    width: 650px;
+    margin: 2rem auto 0 auto;
+}
+
+.upload-method-list {
+        list-style: none;
+        display: flex;
+}
+
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+@media only all and (max-width: 900px) {
+    .upload-box-container {
+        width: 600px;
+    }
+}
+
+@media only all and (max-width: 830px) {
+    .upload-box-container {
+        width: 500px;
+    }
+}
+
+@media only all and (max-width: 740px) {
+    .upload-box-container {
+        width: 450px;
+    }
+}
+@media only all and (max-width: 680px) {
+    .upload-box-container {
+        width: 400px;
+    }
+}
