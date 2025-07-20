@@ -14,6 +14,8 @@ export default  function UploadInputBtn({
         lastId,
         expandedItem,
         setExpandedItem,
+        setTextResult,
+        setTimeSlices,
     }) {
 
     const [isPaused , setIsPaused] = useState(false);
@@ -51,11 +53,18 @@ export default  function UploadInputBtn({
     // getting the audio via link
     async function linkChangeHandler(linkValue) {
         try {
-            let response = await fetch(linkValue);
+            let proxyLink = null;
+            if(linkValue.startsWith("http://tmpfiles.org")) {                
+                proxyLink = linkValue.replace("http://tmpfiles.org" , "/tmpfile");
+            }
+            let response = await fetch(proxyLink ? proxyLink : linkValue);
+            if(!response.ok) throw new Error("FileLink response not ok" , response);
+
             let blob = await response.blob();
             if( !(blob.type.startsWith("audio/") || blob.type.startsWith("video/"))) throw new Error("Unsupported file type");
             
             let newFile = new File([blob] , /\/([^\/]+)$/.exec(linkValue) , {type: blob.type});
+
 
             let newArchiveElem =  {
                 key: lastId,
@@ -65,13 +74,48 @@ export default  function UploadInputBtn({
                 uploadMethod: "link",
                 uploadDate: formattedDate(),
                 selectedFile: newFile,
+                textResult: "",
+                timeSlices: [],
             };
 
-            let newArchives = [newArchiveElem , ...archiveItems];
+            fetch("/api/transcribe_files/" , {
+                method : "POST",
+                headers: {
+                    Authorization: "Token a85d08400c622b50b18b61e239b9903645297196",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({"media_urls": [linkValue]}),   
+            })
+                .then(res => {
+                    if(!res.ok) throw new Error("Res not ok")
+                    else return res.json();
+                })
+                .then(responseJSON => responseJSON[0])
+                .then(result => result.segments)
+                .then(segments => {
+                    let textResult = "";
+                    for (let segment of segments) {
+                        textResult += segment.text; 
+                        newArchiveElem.timeSlices.push({
+                            startTime: segment.start.slice(2,6),
+                            finishTime: segment.end.slice(2,6) ,
+                            text: segment.text,
+                        }); 
+                    }
+                    return textResult;
+                })
+                .then(textResult => {
+                    newArchiveElem.textResult = textResult
+                    
+                    let newArchives = [newArchiveElem , ...archiveItems];
 
-            setArchiveItems(newArchives);
-            setIsDisabled(true)
-            setSelectedFile(newFile);
+                    setTextResult(newArchiveElem.textResult);
+                    setTimeSlices(newArchiveElem.timeSlices);
+                    setArchiveItems(newArchives);
+                    setIsDisabled(true)
+                    setSelectedFile(newFile);
+                })
+                .catch(err => console.log(err));
         }
         catch(err) {
             console.error(err);
@@ -105,6 +149,18 @@ export default  function UploadInputBtn({
             };
 
             let newArchives = [newArchiveElem , ...archiveItems];
+
+            // fetch("/api/transcribe_files/" , {
+            //     method : "POST",
+            //     headers: {
+            //         Authorization: "Token a85d08400c622b50b18b61e239b9903645297196",
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({"media_urls": ["http://tmpfiles.org/dl/6469400/recording4.m4a"]}),   
+            // })
+            //     .then(res => res.json())
+            //     .then(result => console.log(result))
+            //     .catch(err => console.log(err));
 
             setArchiveItems(newArchives);
             setSelectedFile(newFile);

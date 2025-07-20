@@ -84,6 +84,8 @@ export function ArchiveItem({
     selectedFile ,
     setToDelete,
     textResult,
+    timeSlices,
+    duration,
 }) {
 
     let isExpanded = (expandedItem ? (itemNumber === expandedItem ) : false); // checking to see if the item has expanded or not
@@ -105,6 +107,7 @@ export function ArchiveItem({
                                     setExpandedItem={setExpandedItem}
                                     setToDelete={setToDelete}
                                     textResult={textResult}
+                                    duration={duration}
                                     />    
             </tr>
             {isExpanded ?
@@ -114,18 +117,7 @@ export function ArchiveItem({
                         textResult={textResult}  
                         currMethod={uploadMethod}
                         isExpanded={isExpanded}
-                        timeSlices={[
-                                        <TimeSlice key={"00:00"} startTime={"00:00"} finishTime={"00:03"} text={"[با]"} isActive={true} />,
-                                        <TimeSlice key={"00:03"} startTime={"00:03"} finishTime={"00:06"} text={"[---]"} />,
-                                        <TimeSlice key={"00:06"} startTime={"00:06"} finishTime={"00:08"} text={"[---]"} />,
-                                        <TimeSlice key={"00:08"} startTime={"00:08"} finishTime={"00:10"} text={"[با]"} />,
-                                        <TimeSlice key={"00:14"} startTime={"00:14"} finishTime={"00:14"} text={"[بردی]"} />,
-                                        <TimeSlice key={"00:19"} startTime={"00:19"} finishTime={"00:19"} text={"[که چشمک]"} />,
-                                        <TimeSlice key={"00:22"} startTime={"00:22"} finishTime={"00:22"} text={"[باشه]"} />,
-                                        <TimeSlice key={"00:27"} startTime={"00:27"} finishTime={"00:27"} text={"ولی ازت میخوام"} />,
-                                        <TimeSlice key={"00:30"} startTime={"00:30"} finishTime={"00:30"} text={"[آرام]"} />,
-                                        <TimeSlice key={"00:34"} startTime={"00:34"} finishTime={"00:34"} text={"چه جوری شد"} />
-                                    ]}
+                        timeSlices={timeSlices}
                         />
                 </td>
             </tr>

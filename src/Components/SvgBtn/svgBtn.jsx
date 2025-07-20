@@ -111,7 +111,7 @@ export default function SvgBtn({
 
 
     return (
-        <div className={"svg-btn" + ((svgBtnType === "delete") ? " delete-btn" : "")} 
+        <div className={"svg-btn" + ((svgBtnType === "delete") ? " delete-btn" : "") + ((svgBtnType === "download" && selectedFile.size === 0) ? " disabled" : "")} 
             style={deleteStyle}
             onMouseOver={mouseOverHandler} 
             onMouseLeave={mouseLeaveHandler} 
