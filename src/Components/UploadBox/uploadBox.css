@@ -9,6 +9,8 @@
     -moz-border-radius: 25px;
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
+    position: relative;
+    overflow: hidden;
 }
 
 
@@ -39,6 +41,20 @@
 }
 
 
+.loading-transcribe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(233, 227, 223 , 0.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading-transcribe > svg {
+    width: 75px;
+    height: 75px;
+}
 
 
 

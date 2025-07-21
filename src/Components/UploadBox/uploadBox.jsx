@@ -19,18 +19,29 @@ export default function UploadBox({
     const [isRecording , setIsRecording ] = useState(false);
     const [selectedFile , setSelectedFile] = useState(false);
     const [isDragEnable , setIsDragEnable] = useState(false);
+    const [loadingTranscribe , setLoadingTranscribe] = useState(false);
     const [textResult , setTextResult] = useState("[با][---][---] [با] و[---][---] [با][---][---][---][---] کجایی تو [خوش] می دیدی من خسته شدم [ما را] [به] این [زودی] چه جوری شد [عشق شدی] به این است[---] [آخرش] سی با فکر [و] چقدر [نزار می خوام] که [چشم تو] [و با رفت][---][---][---][---][---][---][---][---] سخت [آرام] ولی ازت می خوام[---] بر نگردی هر کسی که به [تو] باشه[---] کاشکی تو منو [بردی] [که چشمک][---] با[---][---][---][---][---] [ابو][---] [با] و و و و و [او");
-    const [timeSlices , setTimeSlices] = useState([
-                                            <TimeSlice key={"00:00"} startTime={"00:00"} finishTime={"00:03"} text={"[با]"} isActive={true} />,
-                                            <TimeSlice key={"00:03"} startTime={"00:03"} finishTime={"00:06"} text={"[---]"} />,
-                                            <TimeSlice key={"00:06"} startTime={"00:06"} finishTime={"00:08"} text={"[---]"} />,
-                                            <TimeSlice key={"00:08"} startTime={"00:08"} finishTime={"00:10"} text={"[با]"} />,
-                                            <TimeSlice key={"00:14"} startTime={"00:14"} finishTime={"00:14"} text={"[بردی]"} />,
-                                            <TimeSlice key={"00:19"} startTime={"00:19"} finishTime={"00:19"} text={"[که چشمک]"} />,
-                                            <TimeSlice key={"00:22"} startTime={"00:22"} finishTime={"00:22"} text={"[باشه]"} />,
-                                            <TimeSlice key={"00:27"} startTime={"00:27"} finishTime={"00:27"} text={"ولی ازت میخوام"} />,
-                                            <TimeSlice key={"00:30"} startTime={"00:30"} finishTime={"00:30"} text={"[آرام]"} />,
-                                            <TimeSlice key={"00:34"} startTime={"00:34"} finishTime={"00:34"} text={"چه جوری شد"} />]);
+    // const [timeSlices , setTimeSlices] = useState([
+    //                                         <TimeSlice key={"00:00"} startTime={"00:00"} finishTime={"00:03"} text={"[با]"} isActive={true} />,
+    //                                         <TimeSlice key={"00:03"} startTime={"00:03"} finishTime={"00:06"} text={"[---]"} />,
+    //                                         <TimeSlice key={"00:06"} startTime={"00:06"} finishTime={"00:08"} text={"[---]"} />,
+    //                                         <TimeSlice key={"00:08"} startTime={"00:08"} finishTime={"00:10"} text={"[با]"} />,
+    //                                         <TimeSlice key={"00:14"} startTime={"00:14"} finishTime={"00:14"} text={"[بردی]"} />,
+    //                                         <TimeSlice key={"00:19"} startTime={"00:19"} finishTime={"00:19"} text={"[که چشمک]"} />,
+    //                                         <TimeSlice key={"00:22"} startTime={"00:22"} finishTime={"00:22"} text={"[باشه]"} />,
+    //                                         <TimeSlice key={"00:27"} startTime={"00:27"} finishTime={"00:27"} text={"ولی ازت میخوام"} />,
+    //                                         <TimeSlice key={"00:30"} startTime={"00:30"} finishTime={"00:30"} text={"[آرام]"} />,
+    //                                         <TimeSlice key={"00:34"} startTime={"00:34"} finishTime={"00:34"} text={"چه جوری شد"} />]);
+    const [timeSlices , setTimeSlices] = useState([{ startTime:"00:00" , finishTime: "00:03" , text: "[با]" , isActive:true },
+                                                    { startTime:"00:03" , finishTime: "00:06" , text: "[---]" },
+                                                    { startTime:"00:06" , finishTime: "00:08" , text: "[---]" },
+                                                    { startTime:"00:08" , finishTime: "00:14" , text: "[با]" },
+                                                    { startTime:"00:14" , finishTime: "00:19" , text: "[بردی]" },
+                                                    { startTime:"00:19" , finishTime: "00:22" , text: "[که چشمک]" },
+                                                    { startTime:"00:22" , finishTime: "00:27" , text: "ولی ازت میخوام" },
+                                                    { startTime:"00:27" , finishTime: "00:30" , text: "[آرام]" },
+                                                    { startTime:"00:30" , finishTime: "00:34" , text: "چه جوری شد" },
+                                                        ]);
     
     // incrementing the id after each file to have it ready for the next      
     useEffect(()=> {
@@ -113,6 +124,9 @@ export default function UploadBox({
                                     expandedItem={expandedItem}
                                     setExpandedItem={setExpandedItem}
                                     lastId={lastId}
+                                    setTextResult={setTextResult}
+                                    setTimeSlices={setTimeSlices}
+                                    setLoadingTranscribe={setLoadingTranscribe}
                                     />
                     {uploadBoxMessage}
                 </div>
@@ -123,13 +137,41 @@ export default function UploadBox({
                 <div className="upload-result">
                     <Result selectedFile={selectedFile}  
                             setSelectedFile={setSelectedFile}  
-                            timeSlices={timeSlices} 
+                            timeSlices={timeSlices.map(timeSlice => <TimeSlice key={timeSlice.startTime} startTime={timeSlice.startTime} finishTime={timeSlice.finishTime} text={timeSlice.text} isActive={timeSlice.isActive ?? false} /> ) } 
                             textResult={textResult} 
                             currMethod={currMethod} 
                             setIsDisabled={setIsDisabled}
                         />
                 </div>
                 :
+                false
+            }
+            {loadingTranscribe ? 
+                <div className="loading-transcribe">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style={{shapeRendering: "auto", display: "block", background: "transparent"}} width={36} height={36} xmlnsXlink="http://www.w3.org/1999/xlink">
+                        <g>
+                            <g>
+                            <path
+                                strokeWidth={12}
+                                stroke={styleColor}
+                                fill="none"
+                                d="M50 35A15 15 0 1 0 64.88172051971716 48.12000149653544"
+                            />
+                            <path fill={styleColor} d="M49 25L49 45L59 35L49 25" />
+                            <animateTransform
+                                keyTimes="0;1"
+                                values="0 50 50;360 50 50"
+                                dur="1.9607843137254901s"
+                                repeatCount="indefinite"
+                                type="rotate"
+                                attributeName="transform"
+                            />
+                            </g>
+                            <g />
+                        </g>
+                    </svg>
+                </div>
+            :
                 false
             }
         </div>

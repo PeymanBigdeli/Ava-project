@@ -73,7 +73,7 @@ export default function AudioPlayer({name , fileUrl , currMethod}) {
     }
 
     return (
-        <div className="uploaded-audio-container">
+        <div className={"uploaded-audio-container" + (fileUrl === "#" ? " disabled" : "")} >
             <audio hidden id="uploaded-audio" src={fileUrl} ref={audioRef} onLoadedMetadata={loadHandler} onTimeUpdate={timeUpdateHandler} onEnded={() => stopAudioHandler()}></audio>
             <div className="audio-player">
                 <div className="audio-level">

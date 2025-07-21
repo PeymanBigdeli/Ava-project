@@ -103,15 +103,31 @@ export default function SvgBtn({
     }
 
     // click hendler for the delete btn
-    function deleteHandler() {
-        // console.log(itemNumber);
-
-        setToDelete(itemNumber); 
+    async function deleteHandler() {
+        try {
+            console.log(itemNumber);
+            let deleteResponse = await fetch(`/api/requests/${itemNumber}/` , {
+                method: "DELETE",
+                headers: {
+                    Authorization: 'Token a85d08400c622b50b18b61e239b9903645297196',
+                },
+            });
+            if(!deleteResponse.ok) throw new Error("Could not delete from the server. Maybe try after refreshing the page"); // API does not send back  the id needed at transcribe call
+                                                                                                                             // Any action towards retrieving the id at this point or any point in the program causes overhead
+                                                                                                                             // if the id was returned by the api which seems like a reasonable expectation all deletes would work on first try     
+            
+        }
+        catch(err) {
+            console.error(err);
+        }
+        finally {
+            setToDelete(itemNumber); 
+        }   
     }
 
 
     return (
-        <div className={"svg-btn" + ((svgBtnType === "delete") ? " delete-btn" : "")} 
+        <div className={"svg-btn" + ((svgBtnType === "delete") ? " delete-btn" : "") + ((svgBtnType === "download" && selectedFile.size === 0) ? " disabled" : "")} 
             style={deleteStyle}
             onMouseOver={mouseOverHandler} 
             onMouseLeave={mouseLeaveHandler} 

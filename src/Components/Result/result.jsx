@@ -27,7 +27,7 @@ export default function Result({
                     />
                     
             <ResultText textResult ={textResult} resultType={resultType} timeSlices={timeSlices}  currMethod={currMethod} />
-            <AudioPlayer name={selectedFile.name} fileUrl={URL.createObjectURL(selectedFile)} currMethod={currMethod}/>
+            <AudioPlayer name={selectedFile.name} fileUrl={selectedFile.size === 0 ? "#" : URL.createObjectURL(selectedFile)} currMethod={currMethod}/>
         </div>
     );  
 }

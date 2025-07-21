@@ -13,6 +13,7 @@ export default function ArchiveResultHeader({
     itemNumber,
     setToDelete,
     textResult,
+    duration,
 }) {
     const [isHovered , setIsHovered] = useState([false , false , false , false]); // to save hover states of each svg btn
     const [fileDuration , setFileDuration] = useState("00:00");
@@ -22,7 +23,7 @@ export default function ArchiveResultHeader({
     let fileType =  `.${/\/([^\/]+)$/.exec(selectedFile.type)[1]}`; // getting the file type format we need using ReGex
     
     // getting the file duration from the File object and setting it
-    getFileDuration(selectedFile).then(res => setFileDuration(timeConvert(res))); 
+    if(!duration) getFileDuration(selectedFile).then(res => setFileDuration(timeConvert(res))); 
 
     // setting the style color based on upload method
     let colorStyle = "#40C6B8";
@@ -59,7 +60,7 @@ export default function ArchiveResultHeader({
             <td>{fileName}</td>
             <td>{uploadDate}</td>
             <td dir="ltr">{fileType}</td>
-            <td>{fileDuration}</td>
+            <td>{duration ?  duration : fileDuration}</td>
             <td>
                 <div className="svg-btns-container">
                     <SvgBtn svgBtnType={"download"} 
