@@ -16,6 +16,8 @@ export default  function UploadInputBtn({
         setExpandedItem,
         setTextResult,
         setTimeSlices,
+        loadingTranscribe,
+        setLoadingTranscribe,
     }) {
 
     const [isPaused , setIsPaused] = useState(false);
@@ -52,6 +54,7 @@ export default  function UploadInputBtn({
 
     // getting the audio via link
     async function linkChangeHandler(linkValue) {
+        setLoadingTranscribe(true);
         try {
             let proxyLink = null;
             if(linkValue.startsWith("http://tmpfiles.org")) {                
@@ -77,7 +80,6 @@ export default  function UploadInputBtn({
                 textResult: "",
                 timeSlices: [],
             };
-
             fetch("/api/transcribe_files/" , {
                 method : "POST",
                 headers: {
@@ -114,11 +116,17 @@ export default  function UploadInputBtn({
                     setArchiveItems(newArchives);
                     setIsDisabled(true)
                     setSelectedFile(newFile);
+                    setLoadingTranscribe(false);
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    setLoadingTranscribe(false);
+                    console.log(err);
+                    
+                });
         }
         catch(err) {
             console.error(err);
+            setLoadingTranscribe(false);
         }
          
     }
