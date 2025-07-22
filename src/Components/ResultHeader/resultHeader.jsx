@@ -3,6 +3,9 @@ import { useState } from "react";
 import ResultNavBtn from "../ResultNavBtn/resultNavBtn.jsx";
 import SvgBtn from "../SvgBtn/svgBtn.jsx";
 
+import { useDispatch } from "react-redux";
+import { setIsDisabled } from "../../redux/isDisabledSlice.js";
+
 export default function ResultHeader({
     selectedFile , 
     setSelectedFile = () => {} , 
@@ -10,10 +13,10 @@ export default function ResultHeader({
     resultType , 
     setResultType , 
     currMethod,
-    setIsDisabled = () => {},
     isExpanded= false,
 }) {
     const [isHovered , setIsHovered] = useState([false , false]); // saving the hover state for svg btns 
+    const dispath = useDispatch();
 
     // setting the color style based on the upload method
     let colorStyle = null;
@@ -24,7 +27,7 @@ export default function ResultHeader({
     // click handler for reseting the input
     function startOverHandler() {
         setSelectedFile(false);
-        setIsDisabled(false);
+        dispath(setIsDisabled(false));
     }
 
     return (

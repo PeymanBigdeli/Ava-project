@@ -1,4 +1,5 @@
 import "./uploadMethodItem.css"
+import { useSelector } from "react-redux";
 
 export default function UploadMethodItem({
   text , 
@@ -6,8 +7,10 @@ export default function UploadMethodItem({
   clickHandler , 
   isActive = false  , 
   currMethod , 
-  isDisabled,
-}) {        
+}) {
+  
+  const isDisabled = useSelector(state => state.isDisabled.value);
+
     // setting the color style based on the upload method
     let styleColor = "#00BA9F";
     if(currMethod === "file") styleColor = "#118AD3";

@@ -10,7 +10,6 @@ export default function Result({
     textResult , 
     timeSlices  ,
     currMethod ,
-    setIsDisabled ,
     isExpanded,
 }) {
     const [resultType , setResultType] = useState("plain"); // saving the result type (plain / time-sliced) to show
@@ -22,7 +21,6 @@ export default function Result({
                         resultType={resultType} 
                         setResultType={setResultType} 
                         currMethod={currMethod}
-                        setIsDisabled={setIsDisabled}
                         isExpanded={isExpanded}
                     />
                     

@@ -1,5 +1,7 @@
 import "./svgBtn.css"
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setToDelete } from "../../redux/toDelete"; 
 
 export default function SvgBtn({
     svgBtnType ,  
@@ -10,13 +12,13 @@ export default function SvgBtn({
     selectedFile = null , 
     textResult = "",
     itemNumber = 0 ,
-    setToDelete = () => {},
 }) {
 
     const [popUp , setPopUp ] = useState({display: "none" , top: 0 , left : 0}); // showing or not showing the download size pop up
     const [deleteStyle , setDeleteStyle] = useState({}); // style for the delete svg btn 
     const fileSize = selectedFile?.size; // getting the file size if available 
     
+    const dispatch = useDispatch();
 
     // initializing variables based on svgBtn type (download / copy / download text / delete)
     let index = null;
@@ -61,7 +63,7 @@ export default function SvgBtn({
         let newIsHovered = isHovered.slice(0);
         newIsHovered[index] = false;
         setIsHovered(newIsHovered);
-                setPopUp({
+        setPopUp({
             display: "none",
         });
         setDeleteStyle({});
@@ -121,7 +123,7 @@ export default function SvgBtn({
             console.error(err);
         }
         finally {
-            setToDelete(itemNumber); 
+            dispatch(setToDelete(itemNumber))
         }   
     }
 

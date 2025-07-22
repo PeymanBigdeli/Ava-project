@@ -2,22 +2,23 @@ import "./archiveResultHeader.css"
 import SvgBtn from "../SvgBtn/svgBtn";
 import { getFileDuration , timeConvert } from "../../Utility/utils.js";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setExpandedItem } from "../../redux/expandedItemSlice.js";
 
 
 export default function ArchiveResultHeader({
     uploadMethod ,
     uploadDate ,
     selectedFile,
-    expandedItem,
-    setExpandedItem,
     itemNumber,
-    setToDelete,
     textResult,
     duration,
 }) {
     const [isHovered , setIsHovered] = useState([false , false , false , false]); // to save hover states of each svg btn
     const [fileDuration , setFileDuration] = useState("00:00");
-    
+    const expandedItem = useSelector(state => state.expandedItem.value);
+
+    const dispatch = useDispatch();
 
     let fileName= selectedFile.name;
     let fileType =  `.${/\/([^\/]+)$/.exec(selectedFile.type)[1]}`; // getting the file type format we need using ReGex
@@ -42,10 +43,10 @@ export default function ArchiveResultHeader({
 
     // click handler for expandings and collapsings of archive items 
     function expandHandler() {
-        if(expandedItem === itemNumber) setExpandedItem(0);
+        if(expandedItem === itemNumber) dispatch(setExpandedItem(0));
         else {
             
-            setExpandedItem(itemNumber);
+            dispatch(setExpandedItem(itemNumber));
         }
         
     }
@@ -97,7 +98,6 @@ export default function ArchiveResultHeader({
                             setIsHovered={setIsHovered} 
                             selectedFile={selectedFile} 
                             itemNumber={itemNumber}
-                            setToDelete={setToDelete}
                         />
 
                 </div>

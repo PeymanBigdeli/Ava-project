@@ -4,6 +4,10 @@ import MainContent from "../MainContent/mainContent.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useState } from "react";
 
+
+import { Provider } from "react-redux";
+import { store } from "../../redux/store.js";
+
 export default function App() {
     const [routePath , setRoutePath] = useState("/"); // to have diffrent content in the not fully rerendered components 
     
@@ -14,10 +18,12 @@ export default function App() {
     
     return(
         <div className="container">
-            <Router>
-                <SideBar routePath={routePath} setRoutePath={setRoutePath} />
-                <MainContent routePath={routePath} />
-            </Router>
+            <Provider store={store}>
+                <Router>
+                    <SideBar routePath={routePath} setRoutePath={setRoutePath} />
+                    <MainContent routePath={routePath} />
+                </Router>
+            </Provider>
         </div>
     );
 } 
