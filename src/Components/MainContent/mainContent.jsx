@@ -8,16 +8,16 @@ import { ArchiveItem } from "../ArchiveList/ArchiveList.jsx";
 import { useEffect, useState , useRef } from "react";
 import { Routes , Route } from "react-router-dom";
 
+import { useSelector , useDispatch} from "react-redux";
 
 
 export default function MainContent({routePath}) {
     const [archiveItems , setArchiveItems] = useState([]);
-    const [expandedItem , setExpandedItem] = useState(0);
-    const [currPage , setCurrPage] = useState(1);
-    const [itemPerPage , setItemPerPage] = useState(2);
-    const [lastId , setLastId] = useState(1);
-    const [toDelete , setToDelete] = useState(0);
     const [isApiResolved , setIsApiResolved] = useState(false);
+    const [itemPerPage , setItemPerPage] = useState(2);
+    
+    const currPage = useSelector(state => state.pagination.currPage);
+    const toDelete = useSelector(state => state.toDelete.value);
 
     // dynamically calculating the items each page can have to have a dynamic pagination  
     window.addEventListener("load" , () => setItemPerPage(calculateItemPerPage()));
@@ -61,8 +61,6 @@ export default function MainContent({routePath}) {
                         let newArchive = {
                             key: result.id,
                             itemNumber: result.id,
-                            expandedItem: expandedItem,
-                            setExpandedItem: setExpandedItem,
                             uploadMethod: "link",
                             uploadDate: result.processed.slice(0,10),
                             selectedFile: resultFile,
@@ -100,12 +98,6 @@ export default function MainContent({routePath}) {
     } ,[]);
 
 
-    // when an item gets expanded we update all items expandedItem prop
-    useEffect(() =>{
-        let newArchiveItems = archiveItems.map(item => ({...item , expandedItem: expandedItem}));
-        setArchiveItems(newArchiveItems);
-    } , [expandedItem]);                                                
-    
     // when an item gets deleted we delete the item from the archive list
     useEffect(() => {
         let newArchiveItems = archiveItems.filter(item => item.itemNumber !== toDelete);
@@ -117,30 +109,17 @@ export default function MainContent({routePath}) {
         <div style={ window.location.pathname === "/archives" ? {paddingRight : "3rem"} : {}} className="main-content">
             <Header routePath={routePath} isApiResolved={isApiResolved} />
             <Routes>
-                
-                <Route path="/" 
-                    element={<UploadMenu archiveItems={archiveItems} 
-                                        setArchiveItems={setArchiveItems} 
-                                        expandedItem={expandedItem} 
-                                        setExpandedItem={setExpandedItem} 
-                                        lastId={lastId} 
-                                        setLastId={setLastId} 
-                                        setToDelete={setToDelete} 
-                                    />} 
-                                />  
-
+                <Route path="/" element={<UploadMenu archiveItems={archiveItems} setArchiveItems={setArchiveItems} />} />  
                 <Route path="/archives" 
-                    element={<ArchiveList currPage={currPage} 
-                                    setCurrPage={setCurrPage}  
+                    element={<ArchiveList 
+                                    // currPage={currPage} 
+                                    // setCurrPage={setCurrPage}  
                                     allpages={Math.max(Math.ceil(archiveItems.length / itemPerPage) , 1)} 
                                     archiveItems={archiveItems.slice((currPage - 1) * itemPerPage ,  currPage * itemPerPage).map(item => <ArchiveItem key={item.key} 
                                                                                                                                                     itemNumber={item.itemNumber} 
-                                                                                                                                                    expandedItem={item.expandedItem} 
-                                                                                                                                                    setExpandedItem={item.setExpandedItem} 
                                                                                                                                                     uploadMethod={item.uploadMethod}  
                                                                                                                                                     uploadDate={item.uploadDate}  
                                                                                                                                                     selectedFile={item.selectedFile} 
-                                                                                                                                                    setToDelete={setToDelete}
                                                                                                                                                     duration={item.duration ? item.duration : ""}
                                                                                                                                                     textResult={item.textResult ??  "[با][---][---] [با] و[---][---] [با][---][---][---][---] کجایی تو [خوش] می دیدی من خسته شدم [ما را] [به] این [زودی] چه جوری شد [عشق شدی] به این است[---] [آخرش] سی با فکر [و] چقدر [نزار می خوام] که [چشم تو] [و با رفت][---][---][---][---][---][---][---][---] سخت [آرام] ولی ازت می خوام[---] بر نگردی هر کسی که به [تو] باشه[---] کاشکی تو منو [بردی] [که چشمک][---] با[---][---][---][---][---] [ابو][---] [با] و و و و و [او"}
                                                                                                                                                     timeSlices={item.timeSlices ?  

@@ -4,19 +4,26 @@ import ArchiveResultHeader from "../ArchiveResultHeader/archiveResultHeader";
 import TimeSlice from "../TimeSlice/timeSlice.jsx";
 import { useState } from "react";
 
-export default function ArchiveList({archiveItems , currPage , setCurrPage , allpages = 1}) {
+import {useDispatch , useSelector } from "react-redux";
+import { setCurrPage } from "../../redux/currPageSlice.js";
 
-
+export default function ArchiveList({archiveItems, allpages = 1}) {
+    const currPage = useSelector(state => state.pagination.currPage);
+    const dispatch = useDispatch();
+    
     // pagination click handlers
 
     function nextPage() {
-        setCurrPage(currPage + 1);
+        dispatch(setCurrPage(currPage + 1));
+        // setCurrPage(currPage + 1);
     }
     function prevPage() {
-        setCurrPage(currPage - 1);
+        dispatch(setCurrPage(currPage - 1));
+        // setCurrPage(currPage - 1);
     }
     function findPage(event) {
-        setCurrPage(+event.target.innerText);
+        dispatch(setCurrPage(+event.target.innerText));
+        // setCurrPage(+event.target.innerText);
     }
 
     // archive items returned as a table and each item as a tbody element
@@ -77,16 +84,15 @@ export default function ArchiveList({archiveItems , currPage , setCurrPage , all
 
 export function ArchiveItem({ 
     itemNumber ,
-    expandedItem , 
-    setExpandedItem, 
     uploadMethod , 
     uploadDate , 
     selectedFile ,
-    setToDelete,
     textResult,
     timeSlices,
     duration,
 }) {
+
+    const expandedItem = useSelector(state => state.expandedItem.value);
 
     let isExpanded = (expandedItem ? (itemNumber === expandedItem ) : false); // checking to see if the item has expanded or not
     
@@ -103,9 +109,6 @@ export function ArchiveItem({
                                     itemNumber={itemNumber}
                                     uploadDate={uploadDate}
                                     selectedFile={selectedFile}
-                                    expandedItem={expandedItem}
-                                    setExpandedItem={setExpandedItem}
-                                    setToDelete={setToDelete}
                                     textResult={textResult}
                                     duration={duration}
                                     />    

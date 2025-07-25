@@ -1,23 +1,19 @@
 import "./uploadInputBtn.css"
 import { useState , useRef } from "react";
 import { formattedDate , timeConvert } from "../../Utility/utils";
+import { useSelector , useDispatch } from "react-redux";
+import { setIsDisabled  } from "../../redux/isDisabledSlice";
+import { setIsRecording } from "../../redux/isRecordingSlice";
+import { setLoadingTranscribe } from "../../redux/loadingTranscribe";
 
 export default  function UploadInputBtn({
         currMethod ,
         styleColor , 
         setSelectedFile , 
-        isRecording , 
-        setIsRecording,
-        setIsDisabled,
         archiveItems,
         setArchiveItems,
-        lastId,
-        expandedItem,
-        setExpandedItem,
         setTextResult,
         setTimeSlices,
-        loadingTranscribe,
-        setLoadingTranscribe,
     }) {
 
     const [isPaused , setIsPaused] = useState(false);
@@ -25,6 +21,10 @@ export default  function UploadInputBtn({
     const timeIntervalRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const streamDataRef = useRef([]);
+
+    const lastId = useSelector(state => state.lastId.value);
+    const isRecording = useSelector(state => state.isRecording.value);
+    const dispatch = useDispatch();
 
     let svgPath = "./public/images/mic-icon.svg";
     if(currMethod === "file") svgPath = "./public/images/upload-icon.svg";
@@ -37,8 +37,6 @@ export default  function UploadInputBtn({
             let newArchiveElem =  {
                 key: lastId,
                 itemNumber: lastId,
-                expandedItem: expandedItem,
-                setExpandedItem: setExpandedItem,
                 uploadMethod: "file",
                 uploadDate: formattedDate(),
                 selectedFile: currFile,
@@ -47,14 +45,14 @@ export default  function UploadInputBtn({
             let newArchives = [newArchiveElem , ...archiveItems];
 
             setArchiveItems(newArchives);
-            setIsDisabled(true)
+            dispatch(setIsDisabled(true));
             setSelectedFile(currFile)
         };        
     }
 
     // getting the audio via link
     async function linkChangeHandler(linkValue) {
-        setLoadingTranscribe(true);
+        dispatch(setLoadingTranscribe(true));
         try {
             let proxyLink = null;
             if(linkValue.startsWith("http://tmpfiles.org")) {                
@@ -72,8 +70,6 @@ export default  function UploadInputBtn({
             let newArchiveElem =  {
                 key: lastId,
                 itemNumber: lastId,
-                expandedItem: expandedItem,
-                setExpandedItem: setExpandedItem,
                 uploadMethod: "link",
                 uploadDate: formattedDate(),
                 selectedFile: newFile,
@@ -114,31 +110,31 @@ export default  function UploadInputBtn({
                     setTextResult(newArchiveElem.textResult);
                     setTimeSlices(newArchiveElem.timeSlices);
                     setArchiveItems(newArchives);
-                    setIsDisabled(true)
+                    dispatch(setIsDisabled(true));
                     setSelectedFile(newFile);
-                    setLoadingTranscribe(false);
+                    dispatch(setLoadingTranscribe(false));
                 })
                 .catch(err => {
-                    setLoadingTranscribe(false);
+                    dispatch(setLoadingTranscribe(false));
                     console.log(err);
                     
                 });
         }
         catch(err) {
             console.error(err);
-            setLoadingTranscribe(false);
+            dispatch(setLoadingTranscribe(false));
         }
          
     }
 
     // getting the audio/video via voice record  
     async function recordVoiceStart() {
-        setIsDisabled(true)
+        dispatch(setIsDisabled(true));
         const audioStream = await navigator.mediaDevices.getUserMedia({audio: true});
         mediaRecorderRef.current = new MediaRecorder(audioStream);
         
         mediaRecorderRef.current.start();
-        setIsRecording(true);
+        dispatch(setIsRecording(true));
         streamDataRef.current = [];
 
         mediaRecorderRef.current.addEventListener("dataavailable" , event => streamDataRef.current.push(event.data));
@@ -149,8 +145,6 @@ export default  function UploadInputBtn({
             let newArchiveElem =  {
                 key: lastId,
                 itemNumber: lastId,
-                expandedItem: expandedItem,
-                setExpandedItem: setExpandedItem,
                 uploadMethod: "record",
                 uploadDate: formattedDate(),
                 selectedFile: newFile,
@@ -183,7 +177,7 @@ export default  function UploadInputBtn({
     // handler for stoping the voice record 
     function recordVoiceStop() {
         mediaRecorderRef.current.stop();
-        setIsRecording(false);
+        dispatch(setIsRecording(false));
         clearInterval(timeIntervalRef.current);
     }
 
