@@ -1,5 +1,5 @@
 import "./archiveResultHeader.css"
-import SvgBtn from "../SvgBtn/svgBtn";
+import SvgBtn from "../SvgBtn/svgBtn.jsx";
 import { getFileDuration , timeConvert } from "../../Utility/utils.js";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,7 +36,7 @@ export default function ArchiveResultHeader({
     else if(uploadMethod === "link") {
         colorStyle = "#FF1654";
         uploadMethodIcon = "chain";
-        fileName = <a dir="ltr" lang="en" className="filename-link" href={fileName}>{fileName}</a>
+        fileName = <a dir="ltr" lang="en" className="filename-link" href={fileName} target={"_blank"} >{fileName}</a>
     }
 
 
@@ -55,7 +55,7 @@ export default function ArchiveResultHeader({
         <>
             <td>
                 <div style={{backgroundColor: colorStyle}} className="upload-mathod-icon" onClick={expandHandler}>
-                    <img src={`./public/images/${uploadMethodIcon}-icon.svg`} alt="" />
+                    <img src={`/images/${uploadMethodIcon}-icon.svg`} alt="" />
                 </div>
             </td>
             <td>{fileName}</td>
@@ -65,7 +65,7 @@ export default function ArchiveResultHeader({
             <td>
                 <div className="svg-btns-container">
                     <SvgBtn svgBtnType={"download"} 
-                            svgPath={`./public/images/download-icon${isHovered[0] ? "-hovered" : ""}.svg`}
+                            svgPath={`/images/download-icon${isHovered[0] ? "-hovered" : ""}.svg`}
                             size={"17px"} 
                             isHovered={isHovered} 
                             setIsHovered={setIsHovered} 
@@ -73,7 +73,7 @@ export default function ArchiveResultHeader({
                             itemNumber={itemNumber}
                         />
                     <SvgBtn svgBtnType={"download-text"} 
-                            svgPath={`./public/images/word-icon${isHovered[2] ? "-hovered" : ""}.svg`} 
+                            svgPath={`/images/word-icon${isHovered[2] ? "-hovered" : ""}.svg`} 
                             size={"17px"} 
                             isHovered={isHovered} 
                             setIsHovered={setIsHovered} 
@@ -82,7 +82,7 @@ export default function ArchiveResultHeader({
                             textResult={textResult}
                         />
                     <SvgBtn svgBtnType={"copy"} 
-                            svgPath={`./public/images/copy-icon${isHovered[1] ? "-hovered" : ""}.svg`} 
+                            svgPath={`/images/copy-icon${isHovered[1] ? "-hovered" : ""}.svg`} 
                             size={"17px"} 
                             isHovered={isHovered} 
                             setIsHovered={setIsHovered} 
@@ -92,7 +92,7 @@ export default function ArchiveResultHeader({
                         />
 
                     <SvgBtn svgBtnType={"delete"} 
-                            svgPath={`./public/images/delete-icon${isHovered[3] ? "-hovered" : ""}.svg`} 
+                            svgPath={`/images/delete-icon${isHovered[3] ? "-hovered" : ""}.svg`} 
                             size={"17px"} 
                             isHovered={isHovered} 
                             setIsHovered={setIsHovered} 

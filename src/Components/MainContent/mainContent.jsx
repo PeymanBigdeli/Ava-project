@@ -10,6 +10,7 @@ import { Routes , Route } from "react-router-dom";
 
 import { useSelector , useDispatch} from "react-redux";
 
+const API_BASE = import.meta.env.VITE_API_URL
 
 export default function MainContent({routePath}) {
     const [archiveItems , setArchiveItems] = useState([]);
@@ -30,7 +31,7 @@ export default function MainContent({routePath}) {
         isArchiveLoaded.current = true;
         async function loadAllArchives() {
             try {
-                let response = await fetch("/api/requests/" , {
+                let response = await fetch(`${API_BASE}/api/requests/` , {
                     headers: {
                         Authorization: "Token a85d08400c622b50b18b61e239b9903645297196",
                     }
@@ -40,10 +41,7 @@ export default function MainContent({routePath}) {
                     let results = (await response.json()).results;   
                     let newArchives = await Promise.all(results.map(async function(result) {
                         let resultFile = new File([""] ,  result.filename , { type: "audio/webm"} );;
-                        try {
-                            if (result.url.startsWith("http://tmpfiles.org"))  {
-                                result.url = result.url.replace("http://tmpfiles.org" , "/tmpfile" ); // tepmorary solution for CORS problem until I set a proper proxy backend  
-                            }      
+                        try {  
                             let fileRes = await fetch(result.url);
 
                             if(fileRes.ok){
@@ -86,7 +84,10 @@ export default function MainContent({routePath}) {
                     setIsApiResolved(true);
                     
                 }
-                else throw new Error("Fetch resonse is not ok");
+                else {
+                    console.log(response);
+                    throw new Error("Fetch resonse is not ok");
+                }
             }
             catch(err) {
                 console.log(err);
@@ -95,6 +96,8 @@ export default function MainContent({routePath}) {
         }
         // setIsApiResolved(true); 
         loadAllArchives();
+
+
     } ,[]);
 
 

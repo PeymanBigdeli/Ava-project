@@ -1,6 +1,6 @@
 import "./archiveList.css"
 import Result from "../Result/result.jsx";
-import ArchiveResultHeader from "../ArchiveResultHeader/archiveResultHeader";
+import ArchiveResultHeader from "../ArchiveResultHeader/archiveResultHeader.jsx";
 import TimeSlice from "../TimeSlice/timeSlice.jsx";
 import { useState } from "react";
 
@@ -49,7 +49,7 @@ export default function ArchiveList({archiveItems, allpages = 1}) {
                     
                     {currPage !== 1 ?
                         <div className="page-back" onClick={prevPage} >
-                            <img src="./public/images/right-arrow-icon.svg" alt="" />
+                            <img src="/images/right-arrow-icon.svg" alt="" />
                         </div>
                         :
                         false
@@ -67,7 +67,7 @@ export default function ArchiveList({archiveItems, allpages = 1}) {
 
                     {currPage !== allpages ?
                         <div className="page-forward" onClick={nextPage} >
-                            <img src="./public/images/left-arrow-icon.svg" alt="" />
+                            <img src="/images/left-arrow-icon.svg" alt="" />
                         </div>
                     :
                         false

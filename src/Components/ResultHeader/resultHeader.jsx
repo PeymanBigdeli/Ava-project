@@ -33,21 +33,21 @@ export default function ResultHeader({
     return (
         <div style={!isExpanded ? {borderBottom: "0.25px solid rgba(0,0,0, 0.5)"} : {}} className="result-header">
             <div style={isExpanded ? {borderBottom: "0.25px solid rgba(0,0,0, 0.5)"} : {}} className="result-header-nav">  
-                <ResultNavBtn navBtnType={"plain"} text={"متن ساده"} svgPath={`./public/images/text-icon.svg`} isActive={resultType === "plain"}  setResultType={setResultType} />
-                <ResultNavBtn navBtnType={"time-sliced"} text={"متن زمان بندی شده"} svgPath={`./public/images/time-icon.svg`} isActive={resultType === "time-sliced"} setResultType={setResultType} />
+                <ResultNavBtn navBtnType={"plain"} text={"متن ساده"} svgPath={`/images/text-icon.svg`} isActive={resultType === "plain"}  setResultType={setResultType} />
+                <ResultNavBtn navBtnType={"time-sliced"} text={"متن زمان بندی شده"} svgPath={`/images/time-icon.svg`} isActive={resultType === "time-sliced"} setResultType={setResultType} />
             </div>
 
             {!isExpanded ?
                 <div className="result-header-btns">
                     <div className="svg-btns-container">
-                        <SvgBtn svgBtnType={"download"} svgPath={`public/images/download-icon${isHovered[0] ? "-hovered" : ""}.svg`} size={"20px"}  setIsHovered={setIsHovered} isHovered={isHovered} selectedFile={selectedFile} />
-                        <SvgBtn svgBtnType={"copy"}  svgPath={`public/images/copy-icon${isHovered[1] ? "-hovered" : ""}.svg`} size={"20px"} setIsHovered={setIsHovered} isHovered={isHovered} textResult={textResult} />
+                        <SvgBtn svgBtnType={"download"} svgPath={`/images/download-icon${isHovered[0] ? "-hovered" : ""}.svg`} size={"20px"}  setIsHovered={setIsHovered} isHovered={isHovered} selectedFile={selectedFile} />
+                        <SvgBtn svgBtnType={"copy"}  svgPath={`/images/copy-icon${isHovered[1] ? "-hovered" : ""}.svg`} size={"20px"} setIsHovered={setIsHovered} isHovered={isHovered} textResult={textResult} />
                     </div>
                     <div className="start-over-btn-container">
                         <button
                             style={{backgroundColor: colorStyle}} 
                             id="start-over-btn" onClick={startOverHandler}>
-                            <img src="./public/images/refresh-icon.svg" alt="" />
+                            <img src="/images/refresh-icon.svg" alt="" />
                             <span>شروع دوباره</span>
                         </button>
                     </div>
