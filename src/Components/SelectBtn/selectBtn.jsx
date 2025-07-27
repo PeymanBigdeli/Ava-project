@@ -17,7 +17,7 @@ export default function SelectBtn({text , svgPath = "" , options = false}) {
             <button className="select-btn" onClick={clickHandler}>
                 {svgPath && <img width="20px" height="20px" src={svgPath} alt="" />} 
                 <span>{text}</span>
-                <img width="10px" height="7px"  src="./public/images/drop-icon.svg" alt="" />
+                <img width="10px" height="7px"  src="/images/drop-icon.svg" alt="" />
             </button>
             <ul className="options-list">
                 {showOption && options}

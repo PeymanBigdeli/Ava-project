@@ -82,9 +82,9 @@ export default function AudioPlayer({name , fileUrl , currMethod}) {
                     </div>
                     <button className="volume-btn" onClick={muteAudioHandler}>
                         {isMuted ?
-                            <img width="20px" height="20px" src="./public/images/mute-icon.svg" alt="" />
+                            <img width="20px" height="20px" src="/images/mute-icon.svg" alt="" />
                             :
-                            <img width="20px" height="20px" src="./public/images/volume-icon.svg" alt="" />
+                            <img width="20px" height="20px" src="/images/volume-icon.svg" alt="" />
                         }
                     </button>
                 </div>
@@ -101,13 +101,13 @@ export default function AudioPlayer({name , fileUrl , currMethod}) {
                 <div className="audio-btns">
                     <button id="pause-btn" onClick={pauseAudioHandler}>
                         {isPlaying ? 
-                            <img width="15px" height="15px" src="./public/images/pause-icon.svg" alt="" />
+                            <img width="15px" height="15px" src="/images/pause-icon.svg" alt="" />
                             :   
-                            <img width="15px" height="15px" src="./public/images/play-icon.svg" alt="" />
+                            <img width="15px" height="15px" src="/images/play-icon.svg" alt="" />
                         }
                     </button>
                     <button id="stop-btn" onClick={stopAudioHandler}>
-                        <img width="15px" height="15px" src="./public/images/stop-icon.svg" alt="" />
+                        <img width="15px" height="15px" src="/images/stop-icon.svg" alt="" />
                     </button>
                 </div>
             </div>

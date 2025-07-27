@@ -20,7 +20,7 @@ function SideBarHeader() {
     return(
         <div className="sidebar-header">
             <div className="main-title">
-                <img src="./public/images/main-logo.svg" alt="" />
+                <img src="/images/main-logo.svg" alt="" />
                 <p>آوا</p>
             </div>
         </div>
@@ -33,14 +33,14 @@ function SideBarContent({routePath , setRoutePath}) {
         <div className="sidebar-content">
             <Link to="/" >
                 <NavButton text={"تبدیل گفتار"}
-                        svgPath={"./public/images/speech-icon.svg"}
+                        svgPath={"/images/speech-icon.svg"}
                         clickHandler={() => {setRoutePath("/")}}
                         isActive={routePath === "/"}
                     />
             </Link>
             <Link to="/archives" >
                 <NavButton text={"آرشیو"}  
-                        svgPath={"./public/images/archive-icon.svg"}
+                        svgPath={"/images/archive-icon.svg"}
                         clickHandler={() => {setRoutePath("/archives")}}
                         isActive={routePath === "/archives"} 
                     />

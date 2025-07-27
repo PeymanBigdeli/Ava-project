@@ -8,13 +8,13 @@ export default function Header({routePath , isApiResolved}) {
         <SelectOption 
             key={1} 
             text={"خروج"} 
-            svgPath="./public/images/logout.svg" 
+            svgPath="/images/logout.svg" 
         />
     ];
     return(
         <header className="header">
             <div className="header-nav">
-                <SelectBtn text={"مهمان"} svgPath="./public/images/user-icon.svg" options={options}/>
+                <SelectBtn text={"مهمان"} svgPath="/images/user-icon.svg" options={options}/>
             </div>
             <div style={routePath === "/archives" ? {textAlign: "right" , display: "flex"}: {}} className="header-content">
                 {routePath === "/" ?

@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setToDelete } from "../../redux/toDelete"; 
 
+
+const API_BASE = import.meta.env.VITE_API_URL
+
 export default function SvgBtn({
     svgBtnType ,  
     svgPath  , 
@@ -107,8 +110,7 @@ export default function SvgBtn({
     // click hendler for the delete btn
     async function deleteHandler() {
         try {
-            console.log(itemNumber);
-            let deleteResponse = await fetch(`/api/requests/${itemNumber}/` , {
+            let deleteResponse = await fetch(`${API_BASE}/api/requests/${itemNumber}/` , {
                 method: "DELETE",
                 headers: {
                     Authorization: 'Token a85d08400c622b50b18b61e239b9903645297196',
@@ -120,7 +122,7 @@ export default function SvgBtn({
             
         }
         catch(err) {
-            console.error(err);
+            console.info(err);
         }
         finally {
             dispatch(setToDelete(itemNumber))

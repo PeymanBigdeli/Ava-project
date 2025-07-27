@@ -5,7 +5,7 @@
 .sidebar {
     width: 170px;
     height: 100vh;
-    background: url(../../public/images/Alefba\ Group.png) , linear-gradient(#00B5A0 , #00C69B);
+    background: url("/images/Alefba-Group.png") , linear-gradient(#00B5A0 , #00C69B);
     background-size: cover;
     background-position: center;
     overflow: hidden;

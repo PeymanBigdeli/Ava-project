@@ -6,6 +6,9 @@ import { setIsDisabled  } from "../../redux/isDisabledSlice";
 import { setIsRecording } from "../../redux/isRecordingSlice";
 import { setLoadingTranscribe } from "../../redux/loadingTranscribe";
 
+
+const API_BASE = import.meta.env.VITE_API_URL
+
 export default  function UploadInputBtn({
         currMethod ,
         styleColor , 
@@ -26,9 +29,9 @@ export default  function UploadInputBtn({
     const isRecording = useSelector(state => state.isRecording.value);
     const dispatch = useDispatch();
 
-    let svgPath = "./public/images/mic-icon.svg";
-    if(currMethod === "file") svgPath = "./public/images/upload-icon.svg";
-    else if(currMethod === "link") svgPath = "./public/images/chain-icon.svg";
+    let svgPath = "/images/mic-icon.svg";
+    if(currMethod === "file") svgPath = "/images/upload-icon.svg";
+    else if(currMethod === "link") svgPath = "/images/chain-icon.svg";
 
     // to set the audio/video uploaded via file 
     function fileChangeHandler(event) {
@@ -54,11 +57,7 @@ export default  function UploadInputBtn({
     async function linkChangeHandler(linkValue) {
         dispatch(setLoadingTranscribe(true));
         try {
-            let proxyLink = null;
-            if(linkValue.startsWith("http://tmpfiles.org")) {                
-                proxyLink = linkValue.replace("http://tmpfiles.org" , "/tmpfile");
-            }
-            let response = await fetch(proxyLink ? proxyLink : linkValue);
+            let response = await fetch(linkValue);
             if(!response.ok) throw new Error("FileLink response not ok" , response);
 
             let blob = await response.blob();
@@ -76,7 +75,7 @@ export default  function UploadInputBtn({
                 textResult: "",
                 timeSlices: [],
             };
-            fetch("/api/transcribe_files/" , {
+            fetch(`${API_BASE}/api/transcribe_files/` , {
                 method : "POST",
                 headers: {
                     Authorization: "Token a85d08400c622b50b18b61e239b9903645297196",
@@ -85,6 +84,7 @@ export default  function UploadInputBtn({
                 body: JSON.stringify({"media_urls": [linkValue]}),   
             })
                 .then(res => {
+                    console.log(res);
                     if(!res.ok) throw new Error("Res not ok")
                     else return res.json();
                 })
@@ -152,17 +152,18 @@ export default  function UploadInputBtn({
 
             let newArchives = [newArchiveElem , ...archiveItems];
 
+            // let formData = new FormData()
+            // formData.append("file" , newFile);
             // fetch("/api/transcribe_files/" , {
             //     method : "POST",
             //     headers: {
             //         Authorization: "Token a85d08400c622b50b18b61e239b9903645297196",
-            //         "Content-Type": "application/json",
+            //         // "Content-Type": "multipart/form-data"
             //     },
-            //     body: JSON.stringify({"media_urls": ["http://tmpfiles.org/dl/6469400/recording4.m4a"]}),   
+            //     body: formData,   
             // })
-            //     .then(res => res.json())
-            //     .then(result => console.log(result))
-            //     .catch(err => console.log(err));
+            //     .then(res => res.text())
+            //     .then(temp => console.log(temp))
 
             setArchiveItems(newArchives);
             setSelectedFile(newFile);
@@ -260,13 +261,13 @@ export default  function UploadInputBtn({
                 <div className="record-control-btns">
                     <div className="record-pause-btn-container" >
                         <button className={"record-pause-btn" + (isPaused ? " record-paused" : "")}  onClick={recordVoicePause} >
-                            <img width="17px" height="17px" src="./public/images/pause-icon-light.svg" alt="" />
+                            <img width="17px" height="17px" src="/images/pause-icon-light.svg" alt="" />
                         </button>
                     </div>  
                     <div className="record-stop-btn-container">
                         <span>{timeConvert(timeElapsed)}</span>
                         <button className="record-stop-btn" onClick={recordVoiceStop}>
-                            <img width="15px" height="15px" src="./public/images/stop-icon-dark.svg" alt="" />
+                            <img width="15px" height="15px" src="/images/stop-icon-dark.svg" alt="" />
                         </button>
                     </div>
                 </div>
