@@ -1,3 +1,8 @@
+to build the docker image : docker-compose build
+to run the docker image : docker-compose up
+backend will run on port 5000 and the react app will run on port 4173
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
